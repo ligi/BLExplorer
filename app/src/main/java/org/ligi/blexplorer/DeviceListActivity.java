@@ -23,7 +23,7 @@ import static org.ligi.blexplorer.DevicePropertiesDescriber.describeBondState;
 import static org.ligi.blexplorer.DevicePropertiesDescriber.describeType;
 
 
-public class MainActivity extends ActionBarActivity {
+public class DeviceListActivity extends ActionBarActivity {
 
     @InjectView(R.id.content_list)
     RecyclerView recyclerView;
@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 Log.i("BLEXplorer", "found " + device.getName());
-                device.connectGatt(MainActivity.this, false, new BluetoothGattCallback() {
+                device.connectGatt(DeviceListActivity.this, false, new BluetoothGattCallback() {
                     @Override
                     public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
                         gatt.connect();
