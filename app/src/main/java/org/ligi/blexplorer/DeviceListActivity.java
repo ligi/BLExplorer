@@ -96,7 +96,7 @@ public class DeviceListActivity extends ActionBarActivity {
                     recyclerView.getAdapter().notifyDataSetChanged();
                 }
 
-                Log.i("BLEXplorer", "found " + device.getName());
+                Log.i("BLExplorer", "found " + device.getName());
                 device.connectGatt(DeviceListActivity.this, false, new BluetoothGattCallback() {
                     @Override
                     public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
@@ -109,7 +109,7 @@ public class DeviceListActivity extends ActionBarActivity {
                     public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
                         final List<BluetoothGattService> services = gatt.getServices();
                         for (final BluetoothGattService service : services) {
-                            Log.i("BLEXplorer", "found service" + service.getUuid());
+                            Log.i("BLExplorer", "found service" + service.getUuid());
                         }
                         super.onServicesDiscovered(gatt, status);
                     }
