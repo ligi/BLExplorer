@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
     private class DeviceRecycler extends RecyclerView.Adapter<DeviceViewHolder> {
         @Override
         public DeviceViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.foo, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_device, viewGroup, false);
             return new DeviceViewHolder(v);
         }
 
