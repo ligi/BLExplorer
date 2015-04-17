@@ -1,6 +1,7 @@
 package org.ligi.blexplorer;
 
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGattService;
 
 public class DevicePropertiesDescriber {
     public static String describeBondState(BluetoothDevice device) {
@@ -29,4 +30,16 @@ public class DevicePropertiesDescriber {
                 return "unknown";
         }
     }
+
+    public static String describeServiceType(BluetoothGattService service) {
+        switch (service.getType()) {
+            case BluetoothGattService.SERVICE_TYPE_PRIMARY:
+                return "primary";
+            case BluetoothGattService.SERVICE_TYPE_SECONDARY:
+                return "secondary";
+            default:
+                return "unknown";
+        }
+    }
+
 }
