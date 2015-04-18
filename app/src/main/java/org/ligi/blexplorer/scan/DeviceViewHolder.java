@@ -1,4 +1,4 @@
-package org.ligi.blexplorer;
+package org.ligi.blexplorer.scan;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import static org.ligi.blexplorer.DevicePropertiesDescriber.describeBondState;
-import static org.ligi.blexplorer.DevicePropertiesDescriber.describeType;
+import org.ligi.blexplorer.R;
+import org.ligi.blexplorer.servicelist.DeviceServiceExploreActivity;
+import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState;
+import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType;
 
-class DeviceViewHolder extends RecyclerView.ViewHolder {
+public class DeviceViewHolder extends RecyclerView.ViewHolder {
 
     public static final String EXTRA_KEY_DEVICE = "device";
     @InjectView(R.id.address)

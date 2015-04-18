@@ -1,4 +1,4 @@
-package org.ligi.blexplorer;
+package org.ligi.blexplorer.servicelist;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -15,6 +15,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import java.util.ArrayList;
 import java.util.List;
+import org.ligi.blexplorer.R;
+import org.ligi.blexplorer.scan.DeviceViewHolder;
+import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 
 public class DeviceServiceExploreActivity extends ActionBarActivity {

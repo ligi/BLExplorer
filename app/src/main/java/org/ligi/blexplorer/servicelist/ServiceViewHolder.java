@@ -1,4 +1,4 @@
-package org.ligi.blexplorer;
+package org.ligi.blexplorer.servicelist;
 
 import android.bluetooth.BluetoothGattService;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,10 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ligi.axt.AXT;
+import org.ligi.blexplorer.R;
+import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
-class ServiceViewHolder extends RecyclerView.ViewHolder {
+public class ServiceViewHolder extends RecyclerView.ViewHolder {
 
     @InjectView(R.id.name)
     TextView name;

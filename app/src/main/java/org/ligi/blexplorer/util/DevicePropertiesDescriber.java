@@ -1,4 +1,4 @@
-package org.ligi.blexplorer;
+package org.ligi.blexplorer.util;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattService;
