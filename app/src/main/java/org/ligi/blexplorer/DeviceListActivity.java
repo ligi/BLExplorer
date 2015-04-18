@@ -46,7 +46,7 @@ public class DeviceListActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_devices);
+        setContentView(R.layout.activity_with_recycler);
 
         ButterKnife.inject(this);
 

@@ -2,6 +2,7 @@ package org.ligi.blexplorer;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattService;
+import android.text.TextUtils;
 
 public class DevicePropertiesDescriber {
     public static String describeBondState(BluetoothDevice device) {
@@ -29,6 +30,10 @@ public class DevicePropertiesDescriber {
             case BluetoothDevice.DEVICE_TYPE_UNKNOWN:
                 return "unknown";
         }
+    }
+
+    public static String getNameOrAddressAsFallback(BluetoothDevice device) {
+        return TextUtils.isEmpty(device.getName()) ? device.getAddress() : device.getName();
     }
 
     public static String describeServiceType(BluetoothGattService service) {
