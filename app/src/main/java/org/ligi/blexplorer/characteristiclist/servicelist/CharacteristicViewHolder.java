@@ -78,7 +78,9 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
         if (characteristic.getValue() != null) {
             value.setText(new BigInteger(1, characteristic.getValue()).toString(16) +
                           " = " +
-                          characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0));
+                          characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
+                          " = " +
+                          characteristic.getStringValue(0));
         } else {
             value.setText("no value read yet");
         }
