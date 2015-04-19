@@ -9,12 +9,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import java.util.ArrayList;
 import java.util.List;
+import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
 
 
@@ -97,5 +100,17 @@ public class DeviceListActivity extends ActionBarActivity {
     protected void onPause() {
         getBluetooth().stopLeScan(null);
         super.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        startActivity(new Intent(this, HelpActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 }

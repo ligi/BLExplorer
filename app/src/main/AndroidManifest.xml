@@ -11,6 +11,8 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
+
+        <activity android:name=".HelpActivity"/>
         <activity android:name=".servicelist.DeviceServiceExploreActivity"/>
         <activity android:name=".characteristiclist.servicelist.CharacteristicActivity"/>
 
