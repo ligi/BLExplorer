@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,9 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
 
     @InjectView(R.id.notify)
     Switch notify;
+
+    @InjectView(R.id.read)
+    Button read;
 
     @OnClick(R.id.read)
     void onReadClick() {
@@ -81,7 +85,18 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
         type.setText(DevicePropertiesDescriber.getProperty(characteristic));
         permissions.setText(DevicePropertiesDescriber.getPermission(characteristic) + "  " + characteristic.getDescriptors().size());
 
-        notify.setChecked(App.notifyingCharacteristicsUUids.contains(characteristic.getUuid()));
+        if ((characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+            notify.setVisibility(View.VISIBLE);
+            notify.setChecked(App.notifyingCharacteristicsUUids.contains(characteristic.getUuid()));
+        } else {
+            notify.setVisibility(View.GONE);
+        }
+
+        if ((characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+            read.setVisibility(View.VISIBLE);
+        } else {
+            read.setVisibility(View.GONE);
+        }
     }
 
 }
