@@ -60,31 +60,41 @@ public class CharacteristicActivity extends ActionBarActivity {
             public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, final int status) {
                 super.onCharacteristicRead(gatt, characteristic, status);
 
-                BluetoothGattCharacteristic found = null;
-                for (final BluetoothGattCharacteristic bluetoothGattCharacteristic : serviceList) {
-                    if (bluetoothGattCharacteristic.getUuid().equals(characteristic.getUuid())) {
-                        found = bluetoothGattCharacteristic;
-                    }
-                }
-
-                if (found == null) {
-                    serviceList.add(characteristic);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    final int index = serviceList.indexOf(found);
-                    serviceList.set(index, characteristic);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyItemChanged(index);
-                        }
-                    });
-
-                }
+                characteristicUpdate(characteristic, adapter);
 
             }
 
+            @Override
+            public void onCharacteristicChanged(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic) {
+                super.onCharacteristicChanged(gatt, characteristic);
+
+                characteristicUpdate(characteristic, adapter);
+            }
         });
+    }
+
+    private void characteristicUpdate(final BluetoothGattCharacteristic characteristic, final CharacteristicRecycler adapter) {
+        BluetoothGattCharacteristic found = null;
+        for (final BluetoothGattCharacteristic bluetoothGattCharacteristic : serviceList) {
+            if (bluetoothGattCharacteristic.getUuid().equals(characteristic.getUuid())) {
+                found = bluetoothGattCharacteristic;
+            }
+        }
+
+        if (found == null) {
+            serviceList.add(characteristic);
+            adapter.notifyDataSetChanged();
+        } else {
+            final int index = serviceList.indexOf(found);
+            serviceList.set(index, characteristic);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemChanged(index);
+                }
+            });
+
+        }
     }
 
     private String getServiceName() {
