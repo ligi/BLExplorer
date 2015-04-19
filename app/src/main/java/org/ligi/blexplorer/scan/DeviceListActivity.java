@@ -58,12 +58,6 @@ public class DeviceListActivity extends ActionBarActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        if (getBluetooth() == null || !getBluetooth().isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
-            startScan();
-        }
     }
 
     @Override
@@ -86,6 +80,17 @@ public class DeviceListActivity extends ActionBarActivity {
 
     private BluetoothAdapter getBluetooth() {
         return ((BluetoothManager) getSystemService(BLUETOOTH_SERVICE)).getAdapter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getBluetooth() == null || !getBluetooth().isEnabled()) {
+            final Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        } else {
+            startScan();
+        }
     }
 
     @Override
