@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/device_card"
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:padding="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                tools:text="uuid"
+                android:id="@+id/uuid"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"/>
+
+        <TextView
+                android:id="@+id/type"
+                tools:text="Type"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        <TextView
+                tools:text="Permissions"
+                android:id="@+id/permissions"
+                android:layout_below="@id/uuid"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"/>
+
+        <TextView
+                tools:text="Value"
+                android:id="@+id/value"
+                android:layout_below="@id/permissions"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"/>
+
+        <Button
+                android:id="@+id/read"
+                android:text="read"
+                android:layout_below="@id/value"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

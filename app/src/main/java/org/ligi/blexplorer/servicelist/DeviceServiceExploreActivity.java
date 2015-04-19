@@ -1,6 +1,5 @@
 package org.ligi.blexplorer.servicelist;
 
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattService;
@@ -15,8 +14,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import java.util.ArrayList;
 import java.util.List;
+import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
-import org.ligi.blexplorer.scan.DeviceViewHolder;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 
@@ -34,17 +33,16 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
         setContentView(R.layout.activity_with_recycler);
         ButterKnife.inject(this);
 
-        final BluetoothDevice device = getIntent().getParcelableExtra(DeviceViewHolder.EXTRA_KEY_DEVICE);
-
-        getSupportActionBar().setSubtitle(DevicePropertiesDescriber.getNameOrAddressAsFallback(device));
+        getSupportActionBar().setSubtitle(DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device));
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         final ServiceRecycler adapter = new ServiceRecycler();
         recycler.setAdapter(adapter);
 
-        device.connectGatt(DeviceServiceExploreActivity.this, false, new BluetoothGattCallback() {
+        App.device.connectGatt(DeviceServiceExploreActivity.this, false, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
+                App.gatt = gatt;
                 gatt.connect();
                 gatt.discoverServices();
                 super.onConnectionStateChange(gatt, status, newState);
@@ -65,10 +63,13 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
             }
 
         });
+
+
     }
 
     @Override
     protected void onPause() {
+        App.gatt.disconnect();
         super.onPause();
     }
 
@@ -82,7 +83,8 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
 
         @Override
         public void onBindViewHolder(final ServiceViewHolder deviceViewHolder, final int i) {
-            deviceViewHolder.applyService(serviceList.get(i));
+            final BluetoothGattService service = serviceList.get(i);
+            deviceViewHolder.applyService(service);
         }
 
         @Override

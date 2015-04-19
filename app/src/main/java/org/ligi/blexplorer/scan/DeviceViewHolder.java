@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
 import org.ligi.blexplorer.servicelist.DeviceServiceExploreActivity;
 import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState;
@@ -44,7 +45,7 @@ public class DeviceViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(final View v) {
                 final Intent intent = new Intent(activity, DeviceServiceExploreActivity.class);
-                intent.putExtra(EXTRA_KEY_DEVICE, device);
+                App.device = device;
                 activity.startActivity(intent);
             }
         });

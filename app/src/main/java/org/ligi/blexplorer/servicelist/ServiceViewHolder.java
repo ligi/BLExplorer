@@ -6,11 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import java.io.IOException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.ligi.axt.AXT;
+import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
+import org.ligi.blexplorer.characteristiclist.servicelist.CharacteristicActivity;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 public class ServiceViewHolder extends RecyclerView.ViewHolder {
@@ -26,21 +25,21 @@ public class ServiceViewHolder extends RecyclerView.ViewHolder {
 
     public ServiceViewHolder(final View itemView) {
         super(itemView);
+
         ButterKnife.inject(this, itemView);
     }
 
     public void applyService(final BluetoothGattService service) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                App.service = service;
+                AXT.at(v.getContext()).startCommonIntent().activityFromClass(CharacteristicActivity.class);
+            }
+        });
         uuid.setText(service.getUuid().toString());
         type.setText(DevicePropertiesDescriber.describeServiceType(service));
 
-        final String serviceKey = service.getUuid().toString().split("-")[0];
-        final String cleanServiceKey = serviceKey.replaceFirst("^0+(?!$)", ""); // remove leading zeroes
-
-        try {
-            final JSONObject jsonObject = new JSONObject(AXT.at(name.getContext().getAssets().open("services.json")).readToString());
-            name.setText(jsonObject.getJSONObject(cleanServiceKey).getString("name"));
-        } catch (IOException | JSONException e) {
-            name.setText("unknown");
-        }
+        name.setText(DevicePropertiesDescriber.getServiceName(name.getContext(), service, "unknown"));
     }
 }
