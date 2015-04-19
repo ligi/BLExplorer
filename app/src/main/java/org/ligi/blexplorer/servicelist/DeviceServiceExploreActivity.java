@@ -43,7 +43,6 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
             @Override
             public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
                 App.gatt = gatt;
-                gatt.connect();
                 gatt.discoverServices();
                 super.onConnectionStateChange(gatt, status, newState);
             }
@@ -58,7 +57,6 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
                         adapter.notifyDataSetChanged();
                     }
                 });
-
                 super.onServicesDiscovered(gatt, status);
             }
 
