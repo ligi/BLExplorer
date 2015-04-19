@@ -1,5 +1,6 @@
 package org.ligi.blexplorer.characteristiclist.servicelist;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import de.cketti.shareintentbuilder.ShareIntentBuilder;
 import java.math.BigInteger;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
@@ -40,6 +42,17 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
     @OnClick(R.id.read)
     void onReadClick() {
         App.gatt.readCharacteristic(characteristic);
+    }
+
+    @OnClick(R.id.share)
+    void onShare() {
+        final Activity activity = (Activity) itemView.getContext();
+        String text = "characteristic UUID: " + characteristic.getUuid().toString() + "\n";
+        text += "service UUID: " + characteristic.getService().getUuid().toString() + "\n";
+        if (characteristic.getValue() != null) {
+            text += "value: " + getValue(characteristic);
+        }
+        activity.startActivity(ShareIntentBuilder.from(activity).text(text).build());
     }
 
     @OnCheckedChanged(R.id.notify)
@@ -76,11 +89,7 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
         uuid.setText(characteristic.getUuid().toString());
 
         if (characteristic.getValue() != null) {
-            value.setText(new BigInteger(1, characteristic.getValue()).toString(16) +
-                          " = " +
-                          characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
-                          " = " +
-                          characteristic.getStringValue(0));
+            value.setText(getValue(characteristic));
         } else {
             value.setText("no value read yet");
         }
@@ -99,6 +108,14 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
         } else {
             read.setVisibility(View.GONE);
         }
+    }
+
+    private String getValue(final BluetoothGattCharacteristic characteristic) {
+        return new BigInteger(1, characteristic.getValue()).toString(16) +
+               " = " +
+               characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
+               " = " +
+               characteristic.getStringValue(0);
     }
 
 }
