@@ -64,12 +64,13 @@ public class DeviceServiceExploreActivity extends ActionBarActivity {
 
         });
 
-
     }
 
     @Override
     protected void onPause() {
-        App.gatt.disconnect();
+        if (App.gatt != null) {
+            App.gatt.disconnect();
+        }
         super.onPause();
     }
 
