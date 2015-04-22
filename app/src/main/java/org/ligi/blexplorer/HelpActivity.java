@@ -3,6 +3,7 @@ package org.ligi.blexplorer;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.ligi.axt.AXT;
 
-public class HelpActivity extends ActionBarActivity {
+public class HelpActivity extends AppCompatActivity {
 
     @InjectView(R.id.content_text)
     TextView text;

@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattService;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import org.ligi.blexplorer.R;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 
-public class DeviceServiceExploreActivity extends ActionBarActivity {
+public class DeviceServiceExploreActivity extends AppCompatActivity {
 
     @InjectView(R.id.content_list)
     RecyclerView recycler;

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
 
 
-public class DeviceListActivity extends ActionBarActivity {
+public class DeviceListActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 2300;
     @InjectView(R.id.content_list)
