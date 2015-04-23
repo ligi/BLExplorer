@@ -2,7 +2,6 @@ package org.ligi.blexplorer;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -25,7 +24,9 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         setContentView(R.layout.activity_with_textview);
         ButterKnife.inject(this);
