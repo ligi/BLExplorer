@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
@@ -33,7 +34,10 @@ public class DeviceServiceExploreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_with_recycler);
         ButterKnife.inject(this);
 
-        getSupportActionBar().setSubtitle(DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setSubtitle(DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         final ServiceRecycler adapter = new ServiceRecycler();
@@ -62,6 +66,12 @@ public class DeviceServiceExploreActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

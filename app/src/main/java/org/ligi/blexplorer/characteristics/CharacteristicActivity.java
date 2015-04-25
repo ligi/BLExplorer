@@ -4,11 +4,11 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
@@ -33,6 +33,10 @@ public class CharacteristicActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_with_recycler);
         ButterKnife.inject(this);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         final CharacteristicRecycler adapter = new CharacteristicRecycler();
@@ -129,4 +133,9 @@ public class CharacteristicActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
 }
