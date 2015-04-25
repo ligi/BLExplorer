@@ -66,6 +66,10 @@ public class DeviceViewHolder extends RecyclerView.ViewHolder {
             scanRecordStr += key + "=" + new BigInteger(1, manufacturerSpecificData.get(key)).toString(16) + "\n";
         }
 
+        for (final ParcelUuid parcelUuid : scanRecord.getServiceData().keySet()) {
+            scanRecordStr += parcelUuid + "=" + new BigInteger(1, scanRecord.getServiceData().get(parcelUuid)).toString(16) + "\n";
+        }
+
         scan_record.setText(scanRecordStr);
 
         type.setText(describeType(device));
