@@ -90,6 +90,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 timingsUpdateHandler.postDelayed(this, 500);
             }
         });
+
     }
 
     @Override
@@ -103,7 +104,6 @@ public class DeviceListActivity extends AppCompatActivity {
             @Override
             public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
                 devices.put(device, new DeviceExtras(scanRecord, rssi));
-                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
     }
