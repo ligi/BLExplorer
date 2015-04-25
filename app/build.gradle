@@ -30,7 +30,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.1.1'
 
     compile 'org.ligi:AXT:0.33'
+    compile 'org.ligi:tracedroid:1.4'
     compile 'com.google.guava:guava:18.0'
     compile 'de.cketti.share:share-intent-builder:0.0.1'
-
 }

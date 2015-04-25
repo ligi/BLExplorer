@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
+import org.ligi.tracedroid.sending.TraceDroidEmailSender;
 
 
 public class DeviceListActivity extends AppCompatActivity {
@@ -53,6 +53,8 @@ public class DeviceListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TraceDroidEmailSender.sendStackTraces("ligi@ligi.de", this);
 
         setContentView(R.layout.activity_with_recycler);
         ButterKnife.inject(this);
