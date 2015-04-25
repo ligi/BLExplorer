@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
-import org.ligi.blexplorer.servicelist.DeviceServiceExploreActivity;
+import org.ligi.blexplorer.services.DeviceServiceExploreActivity;
 import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState;
 import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType;
 

@@ -13,7 +13,7 @@
             android:theme="@style/AppTheme">
 
         <activity android:name=".HelpActivity"/>
-        <activity android:name=".servicelist.DeviceServiceExploreActivity"/>
+        <activity android:name=".services.DeviceServiceExploreActivity"/>
         <activity android:name=".characteristiclist.servicelist.CharacteristicActivity"/>
 
         <activity

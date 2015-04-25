@@ -1,4 +1,4 @@
-package org.ligi.blexplorer.characteristiclist.servicelist;
+package org.ligi.blexplorer.characteristics;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;

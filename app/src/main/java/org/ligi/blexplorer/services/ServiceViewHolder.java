@@ -1,4 +1,4 @@
-package org.ligi.blexplorer.servicelist;
+package org.ligi.blexplorer.services;
 
 import android.bluetooth.BluetoothGattService;
 import android.support.v7.widget.RecyclerView;
