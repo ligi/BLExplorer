@@ -15,19 +15,26 @@
 
         <TextView
                 tools:text="Name Foo Bar"
-                android:id="@+id/mac"
+                android:id="@+id/name"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"/>
 
 
         <TextView
-                android:layout_below="@+id/mac"
+                android:layout_below="@id/name"
                 tools:text="MY:MA:C0:FO:OB:AR"
                 android:id="@+id/address"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"/>
 
         <TextView
+                android:layout_below="@id/address"
+                tools:text="-100db"
+                android:id="@+id/rssi"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
                 android:id="@+id/type"
                 tools:text="Type"
                 android:layout_alignParentEnd="true"
@@ -41,6 +48,24 @@
                 android:layout_below="@id/type"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+            <TextView
+                    android:id="@+id/last_seen"
+                    tools:text="Type"
+                    android:layout_below="@id/bondstate"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+            <TextView
+                    android:id="@+id/scan_record"
+                    tools:text="00112200003030300030300403400"
+                    android:layout_below="@id/last_seen"
                 android:fontFamily="sans-serif-light"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 

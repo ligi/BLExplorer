@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.common.collect.Iterables;
+import java.util.HashMap;
+import java.util.Map;
 import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
 import org.ligi.tracedroid.sending.TraceDroidEmailSender;
@@ -25,10 +27,24 @@ import org.ligi.tracedroid.sending.TraceDroidEmailSender;
 public class DeviceListActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 2300;
+
     @InjectView(R.id.content_list)
     RecyclerView recyclerView;
 
-    List<BluetoothDevice> deviceMap = new ArrayList<>();
+    public class DeviceExtras {
+        public final byte[] scanRecord;
+        public final int rssi;
+        public final long last_seen;
+
+        public DeviceExtras(final byte[] scanRecord, final int rssi) {
+            this.rssi = rssi;
+            this.scanRecord = scanRecord;
+            last_seen = System.currentTimeMillis();
+        }
+
+    }
+
+    Map<BluetoothDevice, DeviceExtras> devices = new HashMap<>();
 
     private class DeviceRecycler extends RecyclerView.Adapter<DeviceViewHolder> {
         @Override
@@ -41,12 +57,13 @@ public class DeviceListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final DeviceViewHolder deviceViewHolder, final int i) {
-            deviceViewHolder.applyDevice(deviceMap.get(i));
+            final BluetoothDevice bluetoothDevice = Iterables.get(devices.keySet(), i);
+            deviceViewHolder.applyDevice(bluetoothDevice, devices.get(bluetoothDevice));
         }
 
         @Override
         public int getItemCount() {
-            return deviceMap.size();
+            return devices.size();
         }
     }
 
@@ -64,6 +81,15 @@ public class DeviceListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        final Handler timingsUpdateHandler = new Handler();
+
+        timingsUpdateHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+                timingsUpdateHandler.postDelayed(this, 500);
+            }
+        });
     }
 
     @Override
@@ -76,10 +102,8 @@ public class DeviceListActivity extends AppCompatActivity {
         getBluetooth().startLeScan(new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-                if (!deviceMap.contains(device)) {
-                    deviceMap.add(device);
-                    recyclerView.getAdapter().notifyDataSetChanged();
-                }
+                devices.put(device, new DeviceExtras(scanRecord, rssi));
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
     }

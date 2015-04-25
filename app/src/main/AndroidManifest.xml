@@ -14,7 +14,7 @@
 
         <activity android:name=".HelpActivity"/>
         <activity android:name=".services.DeviceServiceExploreActivity"/>
-        <activity android:name=".characteristiclist.servicelist.CharacteristicActivity"/>
+        <activity android:name=".characteristics.CharacteristicActivity"/>
 
         <activity
                 android:name=".scan.DeviceListActivity"

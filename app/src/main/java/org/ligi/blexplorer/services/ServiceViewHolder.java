@@ -9,7 +9,7 @@ import butterknife.InjectView;
 import org.ligi.axt.AXT;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
-import org.ligi.blexplorer.characteristiclist.servicelist.CharacteristicActivity;
+import org.ligi.blexplorer.characteristics.CharacteristicActivity;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 public class ServiceViewHolder extends RecyclerView.ViewHolder {
