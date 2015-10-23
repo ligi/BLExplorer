@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
 import org.ligi.blexplorer.services.DeviceServiceExploreActivity;
+import org.ligi.blexplorer.util.ManufacturerRecordParserFactory;
 import org.ligi.blexplorer.util.from_lollipop.ScanRecord;
 import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState;
 import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType;
@@ -63,7 +64,12 @@ public class DeviceViewHolder extends RecyclerView.ViewHolder {
 
         for (int i = 0; i < manufacturerSpecificData.size(); i++) {
             final int key = manufacturerSpecificData.keyAt(i);
-            scanRecordStr += key + "=" + new BigInteger(1, manufacturerSpecificData.get(key)).toString(16) + "\n";
+            ManufacturerRecordParserFactory.ManufacturerParserBase p = ManufacturerRecordParserFactory.parse(key, manufacturerSpecificData.get(key));
+            if (p == null) {
+                scanRecordStr += key + "=" + new BigInteger(1, manufacturerSpecificData.get(key)).toString(16) + "\n";
+            } else {
+                scanRecordStr += p.getKeyDescriptor() + " = {\n" + p.toString() + "}\n";
+            }
         }
 
         for (final ParcelUuid parcelUuid : scanRecord.getServiceData().keySet()) {
