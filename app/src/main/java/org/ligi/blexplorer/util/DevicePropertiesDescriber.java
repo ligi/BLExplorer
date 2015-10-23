@@ -18,13 +18,13 @@ public class DevicePropertiesDescriber {
     public static String describeBondState(BluetoothDevice device) {
         switch (device.getBondState()) {
             case BluetoothDevice.BOND_NONE:
-                return "none";
+                return "not bonded";
             case BluetoothDevice.BOND_BONDING:
                 return "bonding";
             case BluetoothDevice.BOND_BONDED:
                 return "bonded";
             default:
-                return "unknown";
+                return "unknown bondstate";
         }
     }
 
@@ -38,7 +38,7 @@ public class DevicePropertiesDescriber {
                 return "LE";
             default:
             case BluetoothDevice.DEVICE_TYPE_UNKNOWN:
-                return "unknown";
+                return "unknown device type";
         }
     }
 
@@ -53,7 +53,7 @@ public class DevicePropertiesDescriber {
             case BluetoothGattService.SERVICE_TYPE_SECONDARY:
                 return "secondary";
             default:
-                return "unknown";
+                return "unknown service type";
         }
     }
 
@@ -84,7 +84,7 @@ public class DevicePropertiesDescriber {
                 return "write signed mitm";
 
             default:
-                return "unknown" + from.getPermissions();
+                return "unknown permission" + from.getPermissions();
         }
     }
 
