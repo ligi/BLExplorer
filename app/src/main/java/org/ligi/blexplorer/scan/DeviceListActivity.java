@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.google.common.collect.Iterables;
 import java.util.HashMap;
 import java.util.Map;
 import org.ligi.blexplorer.HelpActivity;
@@ -57,7 +56,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final DeviceViewHolder deviceViewHolder, final int i) {
-            final BluetoothDevice bluetoothDevice = Iterables.get(devices.keySet(), i);
+            final BluetoothDevice bluetoothDevice = devices.keySet().toArray(new BluetoothDevice[devices.keySet().size()])[i];
             deviceViewHolder.applyDevice(bluetoothDevice, devices.get(bluetoothDevice));
         }
 

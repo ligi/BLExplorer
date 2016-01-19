@@ -6,13 +6,14 @@ import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.text.TextUtils;
-import com.google.common.base.Joiner;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ligi.axt.AXT;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevicePropertiesDescriber {
     public static String describeBondState(BluetoothDevice device) {
@@ -128,7 +129,7 @@ public class DevicePropertiesDescriber {
             return "no property";
         }
 
-        return Joiner.on(",").join(res);
+        return TextUtils.join(",", res);
     }
 
     public static String getServiceName(Context ctx, BluetoothGattService service, String defaultString) {
