@@ -11,8 +11,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import java.util.ArrayList;
 import java.util.List;
 import org.ligi.blexplorer.App;
@@ -22,7 +23,7 @@ import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
 public class CharacteristicActivity extends AppCompatActivity {
 
-    @InjectView(R.id.content_list)
+    @Bind(R.id.content_list)
     RecyclerView recycler;
 
     private List<BluetoothGattCharacteristic> serviceList = new ArrayList<>();
@@ -32,7 +33,7 @@ public class CharacteristicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_with_recycler);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

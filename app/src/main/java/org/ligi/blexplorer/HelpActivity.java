@@ -8,15 +8,16 @@ import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import java.io.IOException;
 import java.io.InputStream;
 import org.ligi.axt.AXT;
 
 public class HelpActivity extends AppCompatActivity {
 
-    @InjectView(R.id.content_text)
+    @Bind(R.id.content_text)
     TextView text;
 
 
@@ -29,7 +30,7 @@ public class HelpActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_with_textview);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         try {
             final InputStream open = getAssets().open("help.html");

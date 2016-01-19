@@ -14,20 +14,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import java.util.HashMap;
-import java.util.Map;
+
 import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
 import org.ligi.tracedroid.sending.TraceDroidEmailSender;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class DeviceListActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 2300;
 
-    @InjectView(R.id.content_list)
+    @Bind(R.id.content_list)
     RecyclerView recyclerView;
 
     public class DeviceExtras {
@@ -73,7 +76,7 @@ public class DeviceListActivity extends AppCompatActivity {
         TraceDroidEmailSender.sendStackTraces("ligi@ligi.de", this);
 
         setContentView(R.layout.activity_with_recycler);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         final RecyclerView.Adapter adapter = new DeviceRecycler();
 

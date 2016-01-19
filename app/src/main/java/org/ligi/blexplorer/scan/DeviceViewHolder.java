@@ -9,8 +9,9 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import java.math.BigInteger;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
@@ -22,25 +23,25 @@ import static org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType;
 
 public class DeviceViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.address)
+    @Bind(R.id.address)
     public TextView address;
 
-    @InjectView(R.id.name)
+    @Bind(R.id.name)
     public TextView name;
 
-    @InjectView(R.id.bondstate)
+    @Bind(R.id.bondstate)
     public TextView bondstate;
 
-    @InjectView(R.id.type)
+    @Bind(R.id.type)
     public TextView type;
 
-    @InjectView(R.id.last_seen)
+    @Bind(R.id.last_seen)
     public TextView last_seen;
 
-    @InjectView(R.id.rssi)
+    @Bind(R.id.rssi)
     public TextView rssi;
 
-    @InjectView(R.id.scan_record)
+    @Bind(R.id.scan_record)
     public TextView scan_record;
 
     public BluetoothDevice device;
@@ -96,6 +97,6 @@ public class DeviceViewHolder extends RecyclerView.ViewHolder {
     public DeviceViewHolder(final View itemView) {
         super(itemView);
 
-        ButterKnife.inject(this, itemView);
+        ButterKnife.bind(this, itemView);
     }
 }

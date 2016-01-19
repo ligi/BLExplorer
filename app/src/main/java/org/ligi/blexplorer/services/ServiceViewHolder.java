@@ -4,29 +4,31 @@ import android.bluetooth.BluetoothGattService;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+
 import org.ligi.axt.AXT;
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
 import org.ligi.blexplorer.characteristics.CharacteristicActivity;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ServiceViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.name)
+    @Bind(R.id.name)
     TextView name;
 
-    @InjectView(R.id.uuid)
+    @Bind(R.id.uuid)
     TextView uuid;
 
-    @InjectView(R.id.type)
+    @Bind(R.id.type)
     TextView type;
 
     public ServiceViewHolder(final View itemView) {
         super(itemView);
 
-        ButterKnife.inject(this, itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     public void applyService(final BluetoothGattService service) {

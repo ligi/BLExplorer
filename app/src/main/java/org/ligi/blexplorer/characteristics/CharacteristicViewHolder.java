@@ -9,34 +9,37 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
-import de.cketti.shareintentbuilder.ShareIntentBuilder;
-import java.math.BigInteger;
+
 import org.ligi.blexplorer.App;
 import org.ligi.blexplorer.R;
 import org.ligi.blexplorer.util.DevicePropertiesDescriber;
 
+import java.math.BigInteger;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
+import de.cketti.shareintentbuilder.ShareIntentBuilder;
+
 public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.permissions)
+    @Bind(R.id.permissions)
     TextView permissions;
 
-    @InjectView(R.id.uuid)
+    @Bind(R.id.uuid)
     TextView uuid;
 
-    @InjectView(R.id.type)
+    @Bind(R.id.type)
     TextView type;
 
-    @InjectView(R.id.value)
+    @Bind(R.id.value)
     TextView value;
 
-    @InjectView(R.id.notify)
+    @Bind(R.id.notify)
     Switch notify;
 
-    @InjectView(R.id.read)
+    @Bind(R.id.read)
     Button read;
 
     @OnClick(R.id.read)
@@ -81,7 +84,7 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
 
     public CharacteristicViewHolder(final View itemView) {
         super(itemView);
-        ButterKnife.inject(this, itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     public void applyCharacteristic(final BluetoothGattCharacteristic characteristic) {
@@ -112,10 +115,10 @@ public class CharacteristicViewHolder extends RecyclerView.ViewHolder {
 
     private String getValue(final BluetoothGattCharacteristic characteristic) {
         return new BigInteger(1, characteristic.getValue()).toString(16) +
-               " = " +
-               characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
-               " = " +
-               characteristic.getStringValue(0);
+                " = " +
+                characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
+                " = " +
+                characteristic.getStringValue(0);
     }
 
 }
