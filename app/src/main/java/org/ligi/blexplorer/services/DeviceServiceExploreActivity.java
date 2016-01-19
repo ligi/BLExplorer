@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.steamcrafted.loadtoast.LoadToast;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import java.util.ArrayList;
@@ -44,25 +46,36 @@ public class DeviceServiceExploreActivity extends AppCompatActivity {
         final ServiceRecycler adapter = new ServiceRecycler();
         recycler.setAdapter(adapter);
 
+        final LoadToast loadToast = new LoadToast(this).setText("connecting").show();
+
         App.device.connectGatt(DeviceServiceExploreActivity.this, false, new BluetoothGattCallback() {
             @Override
             public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
                 App.gatt = gatt;
                 gatt.discoverServices();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadToast.setText("discovering");
+                    }
+                });
                 super.onConnectionStateChange(gatt, status, newState);
             }
 
             @Override
             public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
+
                 final List<BluetoothGattService> services = gatt.getServices();
                 serviceList.addAll(services);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
+                        loadToast.success();
                     }
                 });
                 super.onServicesDiscovered(gatt, status);
+
             }
 
         });
