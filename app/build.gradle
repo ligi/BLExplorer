@@ -31,5 +31,5 @@ dependencies {
     compile 'org.ligi:AXT:0.33'
     compile 'org.ligi:tracedroid:1.4'
 
-    compile 'de.cketti.share:share-intent-builder:0.0.1'
+    compile 'de.cketti.share:share-intent-builder:0.0.2'
 }
