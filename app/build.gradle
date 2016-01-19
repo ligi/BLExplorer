@@ -9,8 +9,8 @@ android {
         applicationId "org.ligi.blexplorer"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "1.1"
         archivesBaseName = "BLExplorer-$versionName"
     }
     buildTypes {
