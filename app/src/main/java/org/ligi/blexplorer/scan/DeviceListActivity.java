@@ -1,5 +1,6 @@
 package org.ligi.blexplorer.scan;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.ligi.axt.listeners.ActivityFinishingOnClickListener;
 import org.ligi.blexplorer.HelpActivity;
 import org.ligi.blexplorer.R;
 import org.ligi.tracedroid.sending.TraceDroidEmailSender;
@@ -117,7 +119,13 @@ public class DeviceListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (getBluetooth() == null || !getBluetooth().isEnabled()) {
+        if (getBluetooth() == null) {
+            new AlertDialog.Builder(this)
+                    .setMessage("Bluetooth is needed")
+                    .setTitle("Error")
+                    .setPositiveButton("Exit", new ActivityFinishingOnClickListener(this))
+                    .show();
+        } else if (!getBluetooth().isEnabled()) {
             final Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } else {
@@ -127,7 +135,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        getBluetooth().stopLeScan(null);
+        if (getBluetooth()!=null) {
+            getBluetooth().stopLeScan(null);
+        }
         super.onPause();
     }
 
