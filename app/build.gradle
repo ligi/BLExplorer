@@ -11,6 +11,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        archivesBaseName = "BLExplorer-$versionName"
     }
     buildTypes {
         release {
