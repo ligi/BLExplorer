@@ -152,4 +152,5 @@ public class DeviceListActivity extends AppCompatActivity {
         startActivity(new Intent(this, HelpActivity.class));
         return super.onOptionsItemSelected(item);
     }
+    
 }
