@@ -1,3 +1,6 @@
+[![Android app on Google Play](http://ligi.de/img/play_badge.png)](https://play.google.com/store/apps/details?id=org.ligi.blexplorer)
+[![Android app on FDroid](http://ligi.de/img/fdroid_badge.png)](https://f-droid.org/repository/browse/?fdid=org.ligi.blexplorer)
+
 [![Build Status](https://snap-ci.com/ligi/BLExplorer/branch/master/build_image)](https://snap-ci.com/ligi/BLExplorer/branch/master)
 
 ### BLExplorer ###
