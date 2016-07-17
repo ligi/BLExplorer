@@ -11,7 +11,7 @@ public final class ManufacturerRecordParserFactory {
     private static final String TAG = "ManufacturerParser";
 
     private final SparseArray<Class<? extends ManufacturerParserBase>> mParserTemplates =
-            new SparseArray<Class<? extends ManufacturerParserBase>>();
+            new SparseArray<>();
 
     static protected ManufacturerRecordParserFactory sParserFactory;
 
