@@ -10,7 +10,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import org.ligi.axt.AXT
 import java.io.IOException
-import java.util.*
 
 object DevicePropertiesDescriber {
 
@@ -61,53 +60,31 @@ object DevicePropertiesDescriber {
         else -> "unknown permission" + from.permissions
     }
 
+    val property2stringMap = mapOf(
+            BluetoothGattCharacteristic.PROPERTY_BROADCAST to "boadcast",
+            BluetoothGattCharacteristic.PROPERTY_EXTENDED_PROPS to "extended",
+            BluetoothGattCharacteristic.PROPERTY_INDICATE to "indicate",
+            BluetoothGattCharacteristic.PROPERTY_NOTIFY to "notify",
+            BluetoothGattCharacteristic.PROPERTY_READ to "read",
+            BluetoothGattCharacteristic.PROPERTY_SIGNED_WRITE to "signed write",
+            BluetoothGattCharacteristic.PROPERTY_WRITE to "write",
+            BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE to "write no response"
+    )
 
     fun getProperty(from: BluetoothGattCharacteristic): String {
-        val properties = from.properties
-        val res = ArrayList<String>()
 
-        if (properties and BluetoothGattCharacteristic.PROPERTY_BROADCAST > 0) {
-            res.add("boadcast")
+        val res = property2stringMap.keys.filter { from.properties and it > 0 }.joinToString(",")
+
+        return if (res.isEmpty()) {
+            "no property"
+        } else {
+            res
         }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_EXTENDED_PROPS > 0) {
-            res.add("extended")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_INDICATE > 0) {
-            res.add("indicate")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_NOTIFY > 0) {
-            res.add("notify")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_READ > 0) {
-            res.add("read")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_SIGNED_WRITE > 0) {
-            res.add("signed write")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_WRITE > 0) {
-            res.add("write")
-        }
-
-        if (properties and BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE > 0) {
-            res.add("write no response")
-        }
-
-        if (res.isEmpty()) {
-            return "no property"
-        }
-
-        return TextUtils.join(",", res)
     }
 
     fun getServiceName(ctx: Context, service: BluetoothGattService, defaultString: String): String {
         try {
-            val serviceKey = service.uuid.toString().split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+            val serviceKey = service.uuid.toString().split("-".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()[0]
             val cleanServiceKey = serviceKey.replaceFirst("^0+(?!$)".toRegex(), "") // remove leading zeroes
             val jsonObject = JSONObject(AXT.at(ctx.assets.open("services.json")).readToString())
             return jsonObject.getJSONObject(cleanServiceKey).getString("name")
@@ -116,9 +93,7 @@ object DevicePropertiesDescriber {
         } catch (e: JSONException) {
             return defaultString
         }
-
     }
-
 
     fun connectionStateToString(state: Int) = when (state) {
         BluetoothProfile.STATE_DISCONNECTED -> "disconnected"
