@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">BLExplorer</string>
+    <string name="notify">notify</string>
+    <string name="read">read</string>
 
 
 </resources>

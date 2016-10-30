@@ -47,14 +47,14 @@
 
         <Switch
                 android:id="@+id/notify"
-                android:text="notify"
+                android:text="@string/notify"
                 android:layout_below="@id/value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <Button
                 android:id="@+id/read"
-                android:text="read"
+                android:text="@string/read"
                 android:layout_below="@id/notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
