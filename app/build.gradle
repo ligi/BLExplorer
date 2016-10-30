@@ -40,6 +40,7 @@ dependencies {
 
     compile 'org.ligi:AXT:0.36'
     compile 'org.ligi:tracedroid:1.4'
+    compile 'com.github.ligi:ExtraCompats:0.4'
 
     compile 'de.cketti.share:share-intent-builder:0.0.2'
 }
