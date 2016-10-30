@@ -28,7 +28,7 @@ android {
         }
     }
 
-     packagingOptions {
+    packagingOptions {
         // needed for assertJ
         exclude 'asm-license.txt'
         exclude 'LICENSE'
@@ -76,9 +76,10 @@ dependencies {
 
     compile 'net.steamcrafted:load-toast:1.0.9'
 
-    compile 'org.ligi:AXT:0.36'
-    compile 'org.ligi:tracedroid:1.4'
+    compile 'com.github.ligi:AXT:0.36'
+    compile 'com.github.ligi:tracedroid:1.4'
     compile 'com.github.ligi:ExtraCompats:0.4'
+    compile 'com.github.ligi:snackengage:0.9'
 
     androidTestCompile "com.android.support:support-annotations:$support_version"
     androidTestCompile "com.android.support:appcompat-v7:$support_version"

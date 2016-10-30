@@ -15,6 +15,8 @@ import net.steamcrafted.loadtoast.LoadToast
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.R
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
+import org.ligi.snackengage.SnackEngage
+import org.ligi.snackengage.snacks.DefaultRateSnack
 import java.util.*
 
 
@@ -28,7 +30,9 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
         setContentView(R.layout.activity_with_recycler)
 
         supportActionBar?.subtitle = DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
 
         content_list.layoutManager = LinearLayoutManager(this)
         val adapter = ServiceRecycler()
