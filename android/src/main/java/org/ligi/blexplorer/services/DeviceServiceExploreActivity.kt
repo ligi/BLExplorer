@@ -70,9 +70,7 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        if (App.gatt != null) {
-            App.gatt.disconnect()
-        }
+        App.gatt?.disconnect()
         super.onPause()
     }
 
