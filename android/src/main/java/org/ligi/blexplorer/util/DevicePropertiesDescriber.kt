@@ -73,7 +73,10 @@ object DevicePropertiesDescriber {
 
     fun getProperty(from: BluetoothGattCharacteristic): String {
 
-        val res = property2stringMap.keys.filter { from.properties and it > 0 }.joinToString(",")
+        val res = property2stringMap.keys
+                .filter { from.properties and it > 0 }
+                .map { property2stringMap[it] }
+                .joinToString(",")
 
         return if (res.isEmpty()) {
             "no property"
