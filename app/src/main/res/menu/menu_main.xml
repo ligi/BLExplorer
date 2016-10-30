@@ -2,10 +2,10 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".MainActivity">
-      <item
-              android:id="@+id/action_help"
-              android:icon="@drawable/ic_action_help"
-              android:title="Help"
-          android:orderInCategory="100"
-              app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/action_help"
+            android:icon="@drawable/ic_action_help_outline"
+            android:title="Help"
+            android:orderInCategory="100"
+            app:showAsAction="ifRoom"/>
 </menu>

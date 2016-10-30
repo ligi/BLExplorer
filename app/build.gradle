@@ -15,7 +15,9 @@ android {
         versionCode 11
         versionName "1.1"
         archivesBaseName = "BLExplorer-$versionName"
+        vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
