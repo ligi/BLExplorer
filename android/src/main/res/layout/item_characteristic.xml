@@ -13,26 +13,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                tools:text="uuid"
-                android:id="@+id/uuid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"/>
+        <LinearLayout
+                android:id="@+id/typeAndUUIDContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    tools:text="uuid"
+                    android:id="@+id/uuid"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:paddingRight="16dp"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"/>
 
-        <TextView
-                android:id="@+id/type"
-                tools:text="Type"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="sans-serif-light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
+            <TextView
+                    android:id="@+id/type"
+                    tools:text="Type"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
         <TextView
                 tools:text="Permissions"
                 android:id="@+id/permissions"
-                android:layout_below="@id/uuid"
+                android:layout_below="@id/typeAndUUIDContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"/>
