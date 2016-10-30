@@ -1,10 +1,18 @@
 buildscript {
+    ext {
+        kotlin_version = '1.0.4'
+        support_version = '25.0.0'
+        dagger_version = '2.5'
+    }
+
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'de.felixschulze.gradle:gradle-spoon-plugin:2.6.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
