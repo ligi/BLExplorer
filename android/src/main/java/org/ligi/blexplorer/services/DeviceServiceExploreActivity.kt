@@ -57,11 +57,8 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
                     loadToast.success()
                 }
                 super.onServicesDiscovered(gatt, status)
-
             }
-
         })
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -88,9 +85,8 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
             deviceViewHolder.applyService(service)
         }
 
-        override fun getItemCount(): Int {
-            return serviceList.size
-        }
+        override fun getItemCount() = serviceList.size
+
     }
 
 }
