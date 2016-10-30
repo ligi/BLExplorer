@@ -57,7 +57,7 @@ object DevicePropertiesDescriber {
 
         BluetoothGattCharacteristic.PERMISSION_WRITE_SIGNED_MITM -> "write signed mitm"
 
-        else -> "unknown permission" + from.permissions
+        else -> "unknown permission ${from.permissions}"
     }
 
     val property2stringMap = mapOf(
