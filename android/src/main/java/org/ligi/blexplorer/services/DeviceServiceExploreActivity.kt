@@ -64,16 +64,18 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        finish()
-        return super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onPause() {
         App.gatt?.disconnect()
         super.onPause()
     }
-
 
     private inner class ServiceRecycler : RecyclerView.Adapter<ServiceViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ServiceViewHolder {
