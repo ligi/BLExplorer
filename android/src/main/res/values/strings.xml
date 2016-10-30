@@ -3,5 +3,7 @@
     <string name="notify">notify</string>
     <string name="read">read</string>
 
+    <string name="discovering">discovering</string>
+    <string name="connecting">connecting</string>
 
 </resources>

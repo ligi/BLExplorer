@@ -38,13 +38,13 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
         val adapter = ServiceRecycler()
         content_list.adapter = adapter
 
-        val loadToast = LoadToast(this).setText("connecting").show()
+        val loadToast = LoadToast(this).setText(getString(R.string.connecting)).show()
 
         App.device.connectGatt(this@DeviceServiceExploreActivity, false, object : BluetoothGattCallback() {
             override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
                 App.gatt = gatt
                 gatt.discoverServices()
-                runOnUiThread { loadToast.setText("discovering") }
+                runOnUiThread { loadToast.setText(getString(R.string.discovering)) }
                 super.onConnectionStateChange(gatt, status, newState)
             }
 
