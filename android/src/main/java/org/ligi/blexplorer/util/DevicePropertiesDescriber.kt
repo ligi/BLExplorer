@@ -8,7 +8,6 @@ import android.content.Context
 import android.text.TextUtils
 import org.json.JSONException
 import org.json.JSONObject
-import org.ligi.axt.AXT
 import java.io.IOException
 
 object DevicePropertiesDescriber {
@@ -89,7 +88,7 @@ object DevicePropertiesDescriber {
         try {
             val serviceKey = service.uuid.toString().split("-".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()[0]
             val cleanServiceKey = serviceKey.replaceFirst("^0+(?!$)".toRegex(), "") // remove leading zeroes
-            val jsonObject = JSONObject(AXT.at(ctx.assets.open("services.json")).readToString())
+            val jsonObject = JSONObject(ctx.assets.open("services.json").bufferedReader().readText())
             return jsonObject.getJSONObject(cleanServiceKey).getString("name")
         } catch (e: IOException) {
             return defaultString

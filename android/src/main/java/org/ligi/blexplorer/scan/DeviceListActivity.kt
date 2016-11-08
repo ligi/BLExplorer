@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +17,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_with_recycler.*
-import org.ligi.axt.listeners.ActivityFinishingOnClickListener
 import org.ligi.blexplorer.HelpActivity
 import org.ligi.blexplorer.R
 import org.ligi.tracedroid.sending.TraceDroidEmailSender
@@ -91,7 +91,9 @@ class DeviceListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (bluetooth == null) {
-            AlertDialog.Builder(this).setMessage("Bluetooth is needed").setTitle("Error").setPositiveButton("Exit", ActivityFinishingOnClickListener(this)).show()
+            AlertDialog.Builder(this).setMessage("Bluetooth is needed").setTitle("Error").setPositiveButton("Exit",{ dialogInterface: DialogInterface, i: Int ->
+                this@DeviceListActivity.finish()
+            }).show()
         } else if (!bluetooth!!.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
