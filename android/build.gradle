@@ -76,7 +76,7 @@ dependencies {
 
     compile 'net.steamcrafted:load-toast:1.0.9'
 
-    compile 'com.github.ligi:AXT:0.36'
+    compile 'com.github.ligi:KAXT:0.3'
     compile 'com.github.ligi:tracedroid:1.4'
     compile 'com.github.ligi:ExtraCompats:0.4'
     compile 'com.github.ligi:snackengage:0.9'

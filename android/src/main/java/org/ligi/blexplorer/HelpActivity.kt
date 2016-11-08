@@ -7,7 +7,6 @@ import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_with_textview.*
-import org.ligi.axt.AXT
 import org.ligi.compat.HtmlCompat
 import java.io.IOException
 
@@ -23,7 +22,7 @@ class HelpActivity : AppCompatActivity() {
         try {
             val open = assets.open("help.html")
             content_text.movementMethod = LinkMovementMethod.getInstance()
-            content_text.text = HtmlCompat.fromHtml(AXT.at(open).readToString(), Html.ImageGetter {
+            content_text.text = HtmlCompat.fromHtml(open.bufferedReader().readText(), Html.ImageGetter {
                 ContextCompat.getDrawable(this, R.drawable.ic_launcher).apply {
                     setBounds(0, 0, intrinsicWidth, intrinsicHeight)
                 }
