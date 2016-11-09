@@ -25,14 +25,7 @@ import java.util.*
 class DeviceListActivity : AppCompatActivity() {
 
 
-    inner class DeviceExtras(val scanRecord: ByteArray, val rssi: Int) {
-        val last_seen: Long
-
-        init {
-            last_seen = System.currentTimeMillis()
-        }
-
-    }
+    inner class DeviceExtras(val scanRecord: ByteArray, val rssi: Int, val last_seen: Long = System.currentTimeMillis())
 
     internal var devices: MutableMap<BluetoothDevice, DeviceExtras> = HashMap()
 
