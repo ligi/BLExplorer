@@ -42,9 +42,8 @@ class DeviceListActivity : AppCompatActivity() {
             deviceViewHolder.applyDevice(bluetoothDevice, devices[bluetoothDevice]!!)
         }
 
-        override fun getItemCount(): Int {
-            return devices.size
-        }
+        override fun getItemCount()= devices.size
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +83,7 @@ class DeviceListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (bluetooth == null) {
-            AlertDialog.Builder(this).setMessage("Bluetooth is needed").setTitle("Error").setPositiveButton("Exit",{ dialogInterface: DialogInterface, i: Int ->
+            AlertDialog.Builder(this).setMessage("Bluetooth is needed").setTitle("Error").setPositiveButton("Exit", { dialogInterface: DialogInterface, i: Int ->
                 this@DeviceListActivity.finish()
             }).show()
         } else if (!bluetooth!!.isEnabled) {
@@ -96,9 +95,7 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        if (bluetooth != null) {
-            bluetooth!!.stopLeScan(null)
-        }
+        bluetooth?.stopLeScan(null)
         super.onPause()
     }
 
@@ -113,7 +110,6 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     companion object {
-
         private val REQUEST_ENABLE_BT = 2300
     }
 
