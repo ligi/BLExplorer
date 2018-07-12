@@ -39,11 +39,14 @@ class DeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         for (i in 0..manufacturerSpecificData.size() - 1) {
             val key = manufacturerSpecificData.keyAt(i)
-            val p = ManufacturerRecordParserFactory.parse(key, manufacturerSpecificData.get(key))
+            val p = ManufacturerRecordParserFactory.parse(key, manufacturerSpecificData.get(key), device)
             if (p == null) {
                 scanRecordStr += "$key=" + BigInteger(1, manufacturerSpecificData.get(key)).toString(16) + "\n"
             } else {
                 scanRecordStr += p.keyDescriptor + " = {\n" + p.toString() + "}\n"
+                if (!TextUtils.isEmpty(p.getName(device))) {
+                    itemView.name.text = p.getName(device);
+                }
             }
         }
 

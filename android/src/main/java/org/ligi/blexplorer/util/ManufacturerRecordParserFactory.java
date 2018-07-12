@@ -1,6 +1,8 @@
 package org.ligi.blexplorer.util;
 
+import android.bluetooth.BluetoothDevice;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -22,10 +24,10 @@ public final class ManufacturerRecordParserFactory {
         );
     }
 
-    static public ManufacturerParserBase parse(int cic, byte[] record) {
+    static public ManufacturerParserBase parse(int cic, byte[] record, BluetoothDevice device) {
         ManufacturerParserBase p = sParserFactory.getParser(cic);
         if (p != null)
-            if (!p.parse(record))
+            if (!p.parse(record, device))
                 return null;
         return p;
     }
@@ -99,6 +101,14 @@ public final class ManufacturerRecordParserFactory {
             return "" + getCompanyIdentifierCode();
         }
 
+        public String getName(BluetoothDevice device) {
+            if (TextUtils.isEmpty(device.getName())) {
+                return "no name";
+            } else {
+                return device.getName();
+            }
+        }
+
         /**
          * Expect to be given that part of the scanRecord that was the 0xff manufacturer specifc
          * record, but with the manufacturer identifier already removed, and the array clipped
@@ -106,7 +116,7 @@ public final class ManufacturerRecordParserFactory {
          *
          * @return success
          */
-        public abstract boolean parse(byte[] manufacturerData);
+        public abstract boolean parse(byte[] manufacturerData, BluetoothDevice device);
     }
 
     static protected class IBeaconParser extends ManufacturerParserBase {
@@ -129,7 +139,7 @@ public final class ManufacturerRecordParserFactory {
         }
 
         @Override
-        public boolean parse(byte[] manufacturerData) {
+        public boolean parse(byte[] manufacturerData, BluetoothDevice device) {
             // <apple record type> <apple record len> <apple record>
             int index = 0;
             while (index < manufacturerData.length) {
