@@ -11,6 +11,7 @@ import org.ligi.blexplorer.App
 import org.ligi.blexplorer.services.DeviceServiceExploreActivity
 import org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState
 import org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType
+import org.ligi.blexplorer.util.ManufacturerRecordParserFactory
 import org.ligi.blexplorer.util.from_lollipop.ScanRecord
 import java.math.BigInteger
 
@@ -36,9 +37,19 @@ class DeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val manufacturerSpecificData = scanRecord.manufacturerSpecificData
 
-        (0..manufacturerSpecificData.size() - 1)
+        (0 until manufacturerSpecificData.size())
                 .map { manufacturerSpecificData.keyAt(it) }
-                .forEach { scanRecordStr += "$it=" + BigInteger(1, manufacturerSpecificData.get(it)).toString(16) + "\n" }
+                .forEach {key ->
+                    val p = ManufacturerRecordParserFactory.parse(key, manufacturerSpecificData.get(key), device)
+                    if (p == null) {
+                        scanRecordStr += "$key=" + BigInteger(1, manufacturerSpecificData.get(key)).toString(16) + "\n"
+                    } else {
+                        scanRecordStr += p.keyDescriptor + " = {\n" + p.toString() + "}\n"
+                        if (!TextUtils.isEmpty(p.getName(device))) {
+                            itemView.name.text = p.getName(device)
+                        }
+                    }
+                }
 
         for (parcelUuid in scanRecord.serviceData.keys) {
             scanRecordStr += "$parcelUuid=" + BigInteger(1, scanRecord.serviceData[parcelUuid]).toString(16) + "\n"
