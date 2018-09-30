@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BLExplorer</string>
+    <string name="notify">powiadom</string>
+    <string name="read">czytaj</string>
+
+    <string name="discovering">wykrywanie</string>
+    <string name="connecting">łączenie</string>
+
+</resources>
