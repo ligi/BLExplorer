@@ -76,6 +76,10 @@
     "type": "org.bluetooth.service.running_speed_and_cadence"
   },
   "1815": {
+    "name": "Automation IO",
+    "type": "org.bluetooth.service.automation_io"
+  },
+  "1816": {
     "name": "Cycling Speed and Cadence",
     "type": "org.bluetooth.service.cycling_speed_and_cadence"
   }
