@@ -101,7 +101,7 @@ public final class ManufacturerRecordParserFactory {
             return "" + getCompanyIdentifierCode();
         }
 
-        public String getName(BluetoothDevice device) {
+        public static String getName(BluetoothDevice device) {
             if (TextUtils.isEmpty(device.getName())) {
                 return "no name";
             } else {
