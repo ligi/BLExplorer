@@ -142,9 +142,14 @@ public final class ManufacturerRecordParserFactory {
         public boolean parse(byte[] manufacturerData, BluetoothDevice device) {
             // <apple record type> <apple record len> <apple record>
             int index = 0;
-            while (index < manufacturerData.length) {
+            while ((index + 2) <= manufacturerData.length) {
                 mType = manufacturerData[index] & 0xff;
                 mLen = manufacturerData[index + 1] & 0xff;
+
+                if ((index + 2 + mLen) > manufacturerData.length) {
+                    // Not enough data
+                    break;
+                }
 
                 mBytes = new byte[mLen];
                 System.arraycopy(manufacturerData, index + 2, mBytes, 0, mBytes.length);
