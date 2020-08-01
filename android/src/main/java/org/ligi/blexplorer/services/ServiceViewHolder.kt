@@ -1,7 +1,7 @@
 package org.ligi.blexplorer.services
 
 import android.bluetooth.BluetoothGattService
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.item_service.view.*
 import org.ligi.blexplorer.App

@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlin_version = '1.0.5'
+        kotlin_version = '1.3.72'
         support_version = '25.0.0'
         dagger_version = '2.7'
     }
@@ -8,18 +8,15 @@ buildscript {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        google()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        classpath 'com.android.tools.build:gradle:2.2.2'
-        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.2.2'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'de.mobilej.unmock:UnMockPlugin:0.3.6'
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.29.0'
+        classpath 'de.mobilej.unmock:UnMockPlugin:0.7.6'
 
-        // http://stackoverflow.com/a/33889117/322642
-        classpath 'com.github.JakeWharton:sdk-manager-plugin:220bf7a88a7072df3ed16dc8466fb144f2817070'
     }
 }
 
@@ -27,6 +24,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        google()
     }
 }
 

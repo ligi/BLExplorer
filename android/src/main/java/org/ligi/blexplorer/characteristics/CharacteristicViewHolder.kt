@@ -3,7 +3,7 @@ package org.ligi.blexplorer.characteristics
 import android.app.Activity
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import de.cketti.shareintentbuilder.ShareIntentBuilder
