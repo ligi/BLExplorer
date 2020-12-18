@@ -6,7 +6,7 @@ apply plugin: 'spoon'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "org.ligi.blexplorer"
