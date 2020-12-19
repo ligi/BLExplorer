@@ -77,11 +77,11 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'net.steamcrafted:load-toast:1.0.9'
+    implementation 'net.steamcrafted:load-toast:1.0.12'
 
-    implementation 'com.github.ligi:KAXT:0.3'
-    implementation 'com.github.ligi:tracedroid:1.4'
-    implementation 'com.github.ligi:ExtraCompats:0.4'
+    implementation 'com.github.ligi:KAXT:1.0'
+    implementation 'com.github.ligi:tracedroid:3.0'
+    implementation 'com.github.ligi:ExtraCompats:1.0'
     implementation 'com.github.ligi:snackengage:0.9'
 
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
