@@ -1,8 +1,8 @@
 package org.ligi.blexplorer.util.from_lollipop;
 
 import android.os.ParcelUuid;
-import android.support.annotation.Nullable;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.Nullable;
+import androidx.collection.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
 import java.util.ArrayList;

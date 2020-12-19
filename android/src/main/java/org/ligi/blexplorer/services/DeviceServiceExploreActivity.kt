@@ -4,9 +4,9 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothGattService
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -37,7 +37,7 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
 
         SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
 
-        binding.contentList.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = ServiceRecycler()
         binding.contentList.adapter = adapter
 
@@ -77,7 +77,7 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private inner class ServiceRecycler : RecyclerView.Adapter<ServiceViewHolder>() {
+    private inner class ServiceRecycler : androidx.recyclerview.widget.RecyclerView.Adapter<ServiceViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ServiceViewHolder {
             val layoutInflater = LayoutInflater.from(viewGroup.context)
             val binding = ItemServiceBinding.inflate(layoutInflater, viewGroup, false)

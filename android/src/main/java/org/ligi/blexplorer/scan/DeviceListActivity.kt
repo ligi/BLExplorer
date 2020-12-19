@@ -9,9 +9,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -38,7 +38,7 @@ class DeviceListActivity : AppCompatActivity() {
     internal var devices: MutableMap<BluetoothDevice, DeviceExtras> = HashMap()
     private lateinit var binding : ActivityWithRecyclerBinding
 
-    private inner class DeviceRecycler : RecyclerView.Adapter<DeviceViewHolder>() {
+    private inner class DeviceRecycler : androidx.recyclerview.widget.RecyclerView.Adapter<DeviceViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): DeviceViewHolder {
             val layoutInflater = LayoutInflater.from(viewGroup.context)
             val binding = ItemDeviceBinding.inflate(layoutInflater, viewGroup, false)
@@ -65,7 +65,7 @@ class DeviceListActivity : AppCompatActivity() {
         setContentView(binding.root)
         val adapter = DeviceRecycler()
 
-        binding.contentList.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.contentList.adapter = adapter
 
         val timingsUpdateHandler = Handler()

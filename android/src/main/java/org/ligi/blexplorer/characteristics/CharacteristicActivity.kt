@@ -4,9 +4,9 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothGattCharacteristic
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -31,7 +31,7 @@ class CharacteristicActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.contentList.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = CharacteristicRecycler()
         binding.contentList.adapter = adapter
 
@@ -93,7 +93,7 @@ class CharacteristicActivity : AppCompatActivity() {
     }
 
 
-    private inner class CharacteristicRecycler : RecyclerView.Adapter<CharacteristicViewHolder>() {
+    private inner class CharacteristicRecycler : androidx.recyclerview.widget.RecyclerView.Adapter<CharacteristicViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CharacteristicViewHolder {
             val layoutInflater = LayoutInflater.from(viewGroup.context)
             val binding = ItemCharacteristicBinding.inflate(layoutInflater, viewGroup, false)

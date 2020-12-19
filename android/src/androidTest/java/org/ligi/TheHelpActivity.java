@@ -1,6 +1,6 @@
 package org.ligi;
 
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.rule.ActivityTestRule;
 import com.jraska.falcon.FalconSpoon;
 import org.junit.Rule;
 import org.junit.Test;

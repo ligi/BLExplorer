@@ -1,14 +1,14 @@
 package org.ligi.blexplorer.services
 
 import android.bluetooth.BluetoothGattService
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.characteristics.CharacteristicActivity
 import org.ligi.blexplorer.databinding.ItemServiceBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
 import org.ligi.kaxt.startActivityFromClass
 
-class ServiceViewHolder(private val binding: ItemServiceBinding) : RecyclerView.ViewHolder(binding.root) {
+class ServiceViewHolder(private val binding: ItemServiceBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
 
     fun applyService(service: BluetoothGattService) {
         itemView.setOnClickListener { v ->

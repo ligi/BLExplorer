@@ -3,7 +3,7 @@ package org.ligi.blexplorer.scan
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.databinding.ItemDeviceBinding
@@ -14,7 +14,7 @@ import org.ligi.blexplorer.util.ManufacturerRecordParserFactory
 import org.ligi.blexplorer.util.from_lollipop.ScanRecord
 import java.math.BigInteger
 
-class DeviceViewHolder(private val binding: ItemDeviceBinding) : RecyclerView.ViewHolder(binding.root) {
+class DeviceViewHolder(private val binding: ItemDeviceBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
 
     lateinit var device: BluetoothDevice
 
