@@ -10,9 +10,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_with_recycler.*
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.R
+import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
+import org.ligi.blexplorer.databinding.ItemCharacteristicBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
 import java.util.*
 
@@ -20,17 +21,19 @@ import java.util.*
 class CharacteristicActivity : AppCompatActivity() {
 
     private var serviceList: MutableList<BluetoothGattCharacteristic> = ArrayList()
+    private lateinit var binding : ActivityWithRecyclerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_with_recycler)
+        binding = ActivityWithRecyclerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        content_list.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = LinearLayoutManager(this)
         val adapter = CharacteristicRecycler()
-        content_list.adapter = adapter
+        binding.contentList.adapter = adapter
 
         serviceList = App.service.characteristics
 
@@ -92,8 +95,9 @@ class CharacteristicActivity : AppCompatActivity() {
 
     private inner class CharacteristicRecycler : RecyclerView.Adapter<CharacteristicViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CharacteristicViewHolder {
-            val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_characteristic, viewGroup, false)
-            return CharacteristicViewHolder(v)
+            val layoutInflater = LayoutInflater.from(viewGroup.context)
+            val binding = ItemCharacteristicBinding.inflate(layoutInflater, viewGroup, false)
+            return CharacteristicViewHolder(binding)
         }
 
         override fun onBindViewHolder(deviceViewHolder: CharacteristicViewHolder, i: Int) {

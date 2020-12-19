@@ -16,9 +16,10 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_with_recycler.*
 import org.ligi.blexplorer.HelpActivity
 import org.ligi.blexplorer.R
+import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
+import org.ligi.blexplorer.databinding.ItemDeviceBinding
 import org.ligi.tracedroid.sending.TraceDroidEmailSender
 import java.util.*
 
@@ -35,13 +36,14 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     internal var devices: MutableMap<BluetoothDevice, DeviceExtras> = HashMap()
+    private lateinit var binding : ActivityWithRecyclerBinding
 
     private inner class DeviceRecycler : RecyclerView.Adapter<DeviceViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): DeviceViewHolder {
-            val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_device, viewGroup, false)
-            val deviceViewHolder = DeviceViewHolder(v)
-            deviceViewHolder.installOnClickListener(this@DeviceListActivity)
-            return deviceViewHolder
+            val layoutInflater = LayoutInflater.from(viewGroup.context)
+            val binding = ItemDeviceBinding.inflate(layoutInflater, viewGroup, false)
+            return DeviceViewHolder(binding)
+                    .apply { installOnClickListener(this@DeviceListActivity) }
         }
 
         override fun onBindViewHolder(deviceViewHolder: DeviceViewHolder, i: Int) {
@@ -59,11 +61,12 @@ class DeviceListActivity : AppCompatActivity() {
 
         TraceDroidEmailSender.sendStackTraces("ligi@ligi.de", this)
 
-        setContentView(R.layout.activity_with_recycler)
+        binding = ActivityWithRecyclerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val adapter = DeviceRecycler()
 
-        content_list.layoutManager = LinearLayoutManager(this)
-        content_list.adapter = adapter
+        binding.contentList.layoutManager = LinearLayoutManager(this)
+        binding.contentList.adapter = adapter
 
         val timingsUpdateHandler = Handler()
 

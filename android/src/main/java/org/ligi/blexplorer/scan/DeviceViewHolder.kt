@@ -5,9 +5,8 @@ import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.view.View
-import kotlinx.android.synthetic.main.item_device.view.*
 import org.ligi.blexplorer.App
+import org.ligi.blexplorer.databinding.ItemDeviceBinding
 import org.ligi.blexplorer.services.DeviceServiceExploreActivity
 import org.ligi.blexplorer.util.DevicePropertiesDescriber.describeBondState
 import org.ligi.blexplorer.util.DevicePropertiesDescriber.describeType
@@ -15,17 +14,16 @@ import org.ligi.blexplorer.util.ManufacturerRecordParserFactory
 import org.ligi.blexplorer.util.from_lollipop.ScanRecord
 import java.math.BigInteger
 
-class DeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+class DeviceViewHolder(private val binding: ItemDeviceBinding) : RecyclerView.ViewHolder(binding.root) {
 
     lateinit var device: BluetoothDevice
 
     fun applyDevice(newDevice: BluetoothDevice, extras: DeviceListActivity.DeviceExtras) {
         device = newDevice
-        itemView.name.text = if (TextUtils.isEmpty(device.name)) "no name" else device.name
-        itemView.rssi.text = "${extras.rssi}db"
-        itemView.last_seen.text = "" + (System.currentTimeMillis() - extras.last_seen) / 1000 + "s"
-        itemView.address.text = device.address
+        binding.name.text = if (TextUtils.isEmpty(device.name)) "no name" else device.name
+        binding.rssi.text = "${extras.rssi}db"
+        binding.lastSeen.text = "" + (System.currentTimeMillis() - extras.last_seen) / 1000 + "s"
+        binding.address.text = device.address
 
         val scanRecord = ScanRecord.parseFromBytes(extras.scanRecord)
         var scanRecordStr = ""
@@ -46,7 +44,7 @@ class DeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     } else {
                         scanRecordStr += p.keyDescriptor + " = {\n" + p.toString() + "}\n"
                         if (!TextUtils.isEmpty(p.getName(device))) {
-                            itemView.name.text = p.getName(device)
+                            binding.name.text = p.getName(device)
                         }
                     }
                 }
@@ -55,10 +53,10 @@ class DeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             scanRecordStr += "$parcelUuid=" + BigInteger(1, scanRecord.serviceData[parcelUuid]).toString(16) + "\n"
         }
 
-        itemView.scan_record.text = scanRecordStr
+        binding.scanRecord.text = scanRecordStr
 
-        itemView.type.text = describeType(device)
-        itemView.bondstate.text = describeBondState(device)
+        binding.type.text = describeType(device)
+        binding.bondstate.text = describeBondState(device)
     }
 
     fun installOnClickListener(activity: Activity) {

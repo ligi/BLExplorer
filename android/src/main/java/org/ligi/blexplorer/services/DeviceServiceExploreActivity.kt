@@ -10,10 +10,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_with_recycler.*
 import net.steamcrafted.loadtoast.LoadToast
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.R
+import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
+import org.ligi.blexplorer.databinding.ItemServiceBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
 import org.ligi.snackengage.SnackEngage
 import org.ligi.snackengage.snacks.DefaultRateSnack
@@ -23,20 +24,22 @@ import java.util.*
 class DeviceServiceExploreActivity : AppCompatActivity() {
 
     private val serviceList = ArrayList<BluetoothGattService>()
+    private lateinit var binding: ActivityWithRecyclerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_with_recycler)
+        binding = ActivityWithRecyclerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.subtitle = DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
 
-        content_list.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = LinearLayoutManager(this)
         val adapter = ServiceRecycler()
-        content_list.adapter = adapter
+        binding.contentList.adapter = adapter
 
         val loadToast = LoadToast(this).setText(getString(R.string.connecting)).show()
 
@@ -76,8 +79,9 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
 
     private inner class ServiceRecycler : RecyclerView.Adapter<ServiceViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ServiceViewHolder {
-            val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_service, viewGroup, false)
-            return ServiceViewHolder(v)
+            val layoutInflater = LayoutInflater.from(viewGroup.context)
+            val binding = ItemServiceBinding.inflate(layoutInflater, viewGroup, false)
+            return ServiceViewHolder(binding)
         }
 
         override fun onBindViewHolder(deviceViewHolder: ServiceViewHolder, i: Int) {
