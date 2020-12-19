@@ -1,11 +1,11 @@
 package org.ligi.blexplorer
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import org.ligi.blexplorer.databinding.ActivityWithTextviewBinding
 import org.ligi.compat.HtmlCompat
 import java.io.IOException
@@ -26,7 +26,7 @@ class HelpActivity : AppCompatActivity() {
             val open = assets.open("help.html")
             binding.contentText.movementMethod = LinkMovementMethod.getInstance()
             binding.contentText.text = HtmlCompat.fromHtml(open.bufferedReader().readText(), Html.ImageGetter {
-                ContextCompat.getDrawable(this, R.drawable.ic_launcher).apply {
+                ContextCompat.getDrawable(this, R.drawable.ic_launcher)?.apply {
                     setBounds(0, 0, intrinsicWidth, intrinsicHeight)
                 }
             }, null)
