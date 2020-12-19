@@ -101,9 +101,12 @@ class DeviceListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (bluetooth == null) {
-            AlertDialog.Builder(this).setMessage("Bluetooth is needed").setTitle("Error").setPositiveButton("Exit",{ dialogInterface: DialogInterface, i: Int ->
+            AlertDialog.Builder(this)
+                    .setMessage(R.string.bluetooth_needed_error_msg)
+                    .setTitle(R.string.error)
+                    .setPositiveButton(R.string.exit) { _: DialogInterface, _: Int ->
                 this@DeviceListActivity.finish()
-            }).show()
+            }.show()
         } else if (!bluetooth!!.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
