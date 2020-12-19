@@ -144,7 +144,7 @@ private class DeviceViewHolder(private val binding: ItemDeviceBinding) : Recycle
         device = newDevice
         binding.name.text = if (TextUtils.isEmpty(device.name)) "no name" else device.name
         binding.rssi.text = "${extras.rssi}db"
-        binding.lastSeen.text = "" + (System.currentTimeMillis() - extras.last_seen) / 1000 + "s"
+        binding.lastSeen.text = "${(System.currentTimeMillis() - extras.last_seen) / 1000}s"
         binding.address.text = device.address
 
         val scanRecord = ScanRecord.parseFromBytes(extras.scanRecord)
