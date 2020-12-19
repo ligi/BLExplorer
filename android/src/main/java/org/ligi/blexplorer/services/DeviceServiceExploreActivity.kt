@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import net.steamcrafted.loadtoast.LoadToast
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.R
+import org.ligi.blexplorer.characteristics.CharacteristicActivity
 import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
 import org.ligi.blexplorer.databinding.ItemServiceBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
+import org.ligi.kaxt.startActivityFromClass
 import java.util.*
 
 
@@ -87,4 +90,17 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
 
     }
 
+}
+
+private class ServiceViewHolder(private val binding: ItemServiceBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    fun applyService(service: BluetoothGattService) {
+        itemView.setOnClickListener { v ->
+            App.service = service
+            v.context.startActivityFromClass(CharacteristicActivity::class.java)
+        }
+        binding.uuid.text = service.uuid.toString()
+        binding.type.text = DevicePropertiesDescriber.describeServiceType(service)
+        binding.name.text = DevicePropertiesDescriber.getServiceName(itemView.context, service, "unknown")
+    }
 }
