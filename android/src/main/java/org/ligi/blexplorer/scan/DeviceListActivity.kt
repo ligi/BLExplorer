@@ -113,9 +113,7 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        if (bluetooth != null) {
-            bluetooth!!.stopLeScan(null)
-        }
+        bluetooth?.stopLeScan(null)
         super.onPause()
     }
 
