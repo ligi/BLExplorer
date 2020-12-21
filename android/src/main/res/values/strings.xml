@@ -5,5 +5,8 @@
 
     <string name="discovering">discovering</string>
     <string name="connecting">connecting</string>
+    <string name="bluetooth_needed_error_msg">Bluetooth is needed</string>
+    <string name="error">Error</string>
+    <string name="exit">Exit</string>
 
 </resources>

@@ -1,36 +1,43 @@
 package org.ligi.blexplorer.characteristics
 
+import android.app.Activity
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattDescriptor
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_with_recycler.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import de.cketti.shareintentbuilder.ShareIntentBuilder
 import org.ligi.blexplorer.App
-import org.ligi.blexplorer.R
+import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
+import org.ligi.blexplorer.databinding.ItemCharacteristicBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
+import java.math.BigInteger
 import java.util.*
 
 
 class CharacteristicActivity : AppCompatActivity() {
 
     private var serviceList: MutableList<BluetoothGattCharacteristic> = ArrayList()
+    private lateinit var binding : ActivityWithRecyclerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_with_recycler)
+        binding = ActivityWithRecyclerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        content_list.layoutManager = LinearLayoutManager(this)
+        binding.contentList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = CharacteristicRecycler()
-        content_list.adapter = adapter
+        binding.contentList.adapter = adapter
 
         serviceList = App.service.characteristics
 
@@ -90,10 +97,11 @@ class CharacteristicActivity : AppCompatActivity() {
     }
 
 
-    private inner class CharacteristicRecycler : RecyclerView.Adapter<CharacteristicViewHolder>() {
+    private inner class CharacteristicRecycler : androidx.recyclerview.widget.RecyclerView.Adapter<CharacteristicViewHolder>() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CharacteristicViewHolder {
-            val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_characteristic, viewGroup, false)
-            return CharacteristicViewHolder(v)
+            val layoutInflater = LayoutInflater.from(viewGroup.context)
+            val binding = ItemCharacteristicBinding.inflate(layoutInflater, viewGroup, false)
+            return CharacteristicViewHolder(binding)
         }
 
         override fun onBindViewHolder(deviceViewHolder: CharacteristicViewHolder, i: Int) {
@@ -109,4 +117,81 @@ class CharacteristicActivity : AppCompatActivity() {
         finish()
         return super.onOptionsItemSelected(item)
     }
+}
+
+private class CharacteristicViewHolder(private val binding: ItemCharacteristicBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    private var characteristic: BluetoothGattCharacteristic? = null
+
+    fun applyCharacteristic(characteristic: BluetoothGattCharacteristic) {
+        this.characteristic = characteristic
+        binding.uuid.text = characteristic.uuid.toString()
+
+        if (characteristic.value != null) {
+            binding.value.text = getValue(characteristic)
+        } else {
+            binding.value.text = "no value read yet"
+        }
+        binding.type.text = DevicePropertiesDescriber.getProperty(characteristic)
+        binding.permissions.text = DevicePropertiesDescriber.getPermission(characteristic) + "  " + characteristic.descriptors.size
+
+        if (characteristic.properties and BluetoothGattCharacteristic.PROPERTY_NOTIFY > 0) {
+            binding.notify.visibility = View.VISIBLE
+            binding.notify.isChecked = App.notifyingCharacteristicsUUids.contains(characteristic.uuid)
+        } else {
+            binding.notify.visibility = View.GONE
+        }
+
+        if (characteristic.properties and BluetoothGattCharacteristic.PROPERTY_READ > 0) {
+            binding.read.visibility = View.VISIBLE
+        } else {
+            binding.read.visibility = View.GONE
+        }
+
+        binding.read.setOnClickListener {
+            App.gatt.readCharacteristic(characteristic)
+        }
+
+        binding.share.setOnClickListener {
+            val activity = binding.root.context as Activity
+            var text = "characteristic UUID: " + characteristic.uuid.toString() + "\n"
+            text += "service UUID: " + characteristic.service.uuid.toString() + "\n"
+            if (characteristic.value != null) {
+                text += "value: " + getValue(characteristic)
+            }
+            activity.startActivity(ShareIntentBuilder.from(activity).text(text).build())
+
+        }
+
+        binding.notify.setOnCheckedChangeListener { compoundButton, check ->
+            if (check) {
+                if (!App.notifyingCharacteristicsUUids.contains(characteristic.uuid)) {
+                    App.notifyingCharacteristicsUUids.add(characteristic.uuid)
+                }
+            } else {
+                App.notifyingCharacteristicsUUids.remove(characteristic.uuid)
+            }
+
+            if (!App.gatt.setCharacteristicNotification(characteristic, check)) {
+                Toast.makeText(itemView.context, "setCharacteristicNotification returned false", Toast.LENGTH_LONG).show()
+            } else {
+
+                val descriptor = characteristic.descriptors[0]
+                descriptor.value = if (check) BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE else BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE
+                if (!App.gatt.writeDescriptor(descriptor)) {
+                    Toast.makeText(itemView.context, "Could not write descriptor for notification", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+
+    private fun getValue(characteristic: BluetoothGattCharacteristic): String {
+        return BigInteger(1, characteristic.value).toString(16) +
+                " = " +
+                characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT16, 0) +
+                " = " +
+                characteristic.getStringValue(0)
+    }
+
 }
