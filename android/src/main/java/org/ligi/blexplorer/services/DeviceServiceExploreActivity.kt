@@ -4,11 +4,12 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothGattService
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+
 import net.steamcrafted.loadtoast.LoadToast
 import org.ligi.blexplorer.App
 import org.ligi.blexplorer.R
@@ -17,6 +18,8 @@ import org.ligi.blexplorer.databinding.ActivityWithRecyclerBinding
 import org.ligi.blexplorer.databinding.ItemServiceBinding
 import org.ligi.blexplorer.util.DevicePropertiesDescriber
 import org.ligi.kaxt.startActivityFromClass
+import org.ligi.snackengage.SnackEngage
+import org.ligi.snackengage.snacks.DefaultRateSnack
 import java.util.*
 
 
@@ -33,6 +36,8 @@ class DeviceServiceExploreActivity : AppCompatActivity() {
 
         supportActionBar?.subtitle = DevicePropertiesDescriber.getNameOrAddressAsFallback(App.device)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
 
         binding.contentList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = ServiceRecycler()

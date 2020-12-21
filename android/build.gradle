@@ -82,6 +82,7 @@ dependencies {
     implementation 'com.github.ligi:KAXT:1.0'
     implementation 'com.github.ligi:tracedroid:3.0'
     implementation 'com.github.ligi:ExtraCompats:1.0'
+    implementation 'com.github.ligi.snackengage:snackengage-playrate:0.27'
 
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
     androidTestImplementation 'androidx.appcompat:appcompat:1.2.0'
